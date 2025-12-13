@@ -947,7 +947,25 @@
 
     <script>
         // Time horizon selection - FIX #4
-        let selectedTimeHorizon = 3;
+        // ============================================
+// API CONFIGURATION & KEYS
+// ============================================
+const API_CONFIG = {
+    FRED_API_KEY: '67487d510765ce2253149af770666c57',
+    NEWSAPI_KEY: '8af8495f6b51463499caa2ed79043e3e',
+    ALPHA_VANTAGE_KEY: 'TBL8BDMT2P50INUW',
+};
+
+const COUNTRY_CODES = {
+    'DK': 'Denmark', 'SE': 'Sweden', 'NO': 'Norway', 'FI': 'Finland',
+    'DE': 'Germany', 'FR': 'France', 'GB': 'United Kingdom', 'NL': 'Netherlands',
+    'BE': 'Belgium', 'IT': 'Italy', 'ES': 'Spain', 'PT': 'Portugal',
+    'GR': 'Greece', 'PL': 'Poland', 'CZ': 'Czech Republic', 'RO': 'Romania',
+    'HU': 'Hungary', 'JP': 'Japan', 'CN': 'China', 'IN': 'India',
+    'SG': 'Singapore', 'KR': 'South Korea', 'US': 'United States',
+    'CA': 'Canada', 'BR': 'Brazil', 'MX': 'Mexico', 'AU': 'Australia'
+};
+let selectedTimeHorizon = 3;
 
         function selectTimeHorizon(months, element) {
             selectedTimeHorizon = months;
@@ -964,6 +982,150 @@
             
             console.log('Time horizon selected: ' + months + ' months');
         }
+// ============================================
+// ENERGY SYSTEM - FRED API
+// ============================================
+async function fetchEnergyData(countryCode) {
+    try {
+        const url = `https://api.stlouisfed.org/fred/series/data?series_id=DCOILWTICO&limit=1&sort_order=desc&api_key=${API_CONFIG.FRED_API_KEY}`;
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`FRED API error: ${response.status}`);
+        const data = await response.json();
+        if (!data.observations || data.observations.length === 0) return 50;
+        
+        const oilPrice = parseFloat(data.observations.value);
+        let score = 50;
+        if (oilPrice < 40) score = 20;
+        else if (oilPrice < 60) score = 35;
+        else if (oilPrice < 80) score = 50;
+        else if (oilPrice < 100) score = 65;
+        else if (oilPrice < 120) score = 80;
+        else score = 95;
+        
+        console.log(`Oil price: $${oilPrice}/barrel → Energy: ${score}`);
+        return score;
+    } catch (error) {
+        console.error('Energy API error:', error);
+        return 50;
+    }
+}
+
+// ============================================
+// INFORMATION SYSTEM - NewsAPI
+// ============================================
+async function fetchNewsData(countryCode) {
+    try {
+        const countryName = COUNTRY_CODES[countryCode] || countryCode;
+        const url = `https://newsapi.org/v2/top-headlines?q=${countryName}&sortBy=publishedAt&apiKey=${API_CONFIG.NEWSAPI_KEY}`;
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`NewsAPI error: ${response.status}`);
+        const data = await response.json();
+        if (!data.articles || data.articles.length === 0) return 50;
+        
+        let negativeCount = 0;
+        const negativeKeywords = ['crisis', 'warning', 'risk', 'decline', 'failure', 'threat', 'attack', 'conflict', 'disaster'];
+        
+        data.articles.forEach(article => {
+            const text = (article.title + ' ' + article.description).toLowerCase();
+            if (negativeKeywords.some(keyword => text.includes(keyword))) {
+                negativeCount++;
+            }
+        });
+        
+        const score = Math.min(100, (negativeCount / data.articles.length) * 120);
+        console.log(`News sentiment: ${(negativeCount/data.articles.length*100).toFixed(1)}% negative → Information: ${score.toFixed(0)}`);
+        return score;
+    } catch (error) {
+        console.error('News API error:', error);
+        return 50;
+    }
+}
+
+// ============================================
+// FINANCIAL SYSTEM - Alpha Vantage
+// ============================================
+async function fetchFinancialData(countryCode) {
+    try {
+        const countryIndices = {
+            'US': 'SPY', 'GB': 'EUNL.LON', 'DE': 'DAX', 'FR': 'FCHI',
+            'JP': 'NIKKEI', 'CN': 'BVSP', 'AU': 'AXJO'
+        };
+        const symbol = countryIndices[countryCode] || 'SPY';
+        const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${API_CONFIG.ALPHA_VANTAGE_KEY}`;
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`AlphaVantage error: ${response.status}`);
+        const data = await response.json();
+        
+        if (!data['Global Quote'] || !data['Global Quote']['09. change percent']) return 50;
+        
+        const changePercent = parseFloat(data['Global Quote']['09. change percent']);
+        const volatility = Math.abs(changePercent);
+        
+        let score = 50;
+        if (volatility < 2) score = 25;
+        else if (volatility < 5) score = 40;
+        else if (volatility < 10) score = 55;
+        else if (volatility < 15) score = 70;
+        else score = 85;
+        
+        console.log(`Market change: ${changePercent}% → Financial: ${score}`);
+        return score;
+    } catch (error) {
+        console.error('Financial API error:', error);
+        return 50;
+    }
+}
+
+// ============================================
+// DEMOGRAPHIC SYSTEM - World Bank API
+// ============================================
+async function fetchDemographicData(countryCode) {
+    try {
+        const url = `https://api.worldbank.org/v2/country/${countryCode}/indicator/SP.DYN.CBRT.IN?format=json&mrnev=1`;
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`World Bank error: ${response.status}`);
+        const data = await response.json();
+        
+        if (!data || !data || !data.value) return 50;
+        
+        const birthRate = parseFloat(data.value);
+        if (isNaN(birthRate)) return 50;
+        
+        let score = 50;
+        if (birthRate < 8) score = 75;
+        else if (birthRate < 12) score = 60;
+        else if (birthRate < 18) score = 35;
+        else if (birthRate < 25) score = 35;
+        else if (birthRate < 35) score = 60;
+        else score = 80;
+        
+        console.log(`Birth rate: ${birthRate}/1000 → Demographic: ${score}`);
+        return score;
+    } catch (error) {
+        console.error('Demographic API error:', error);
+        return 50;
+    }
+}
+
+// ============================================
+// STUB FUNCTIONS (Placeholder until APIs added)
+// ============================================
+async function fetchTechnologyData(countryCode) {
+    const devCountries = ['US', 'JP', 'DE', 'GB', 'FR', 'SE', 'NO', 'DK'];
+    return devCountries.includes(countryCode) ? Math.random() * 30 + 35 : Math.random() * 40 + 40;
+}
+
+async function fetchGeopoliticalData(countryCode) {
+    return Math.random() * 60 + 20;
+}
+
+async function fetchDigitalInfrastructureData(countryCode) {
+    return Math.random() * 50 + 25;
+}
+
+async function fetchSupplyChainData(countryCode) {
+    return Math.random() * 60 + 20;
+}
 
         // Tab switching functionality
         function switchTab(tabName) {
@@ -983,7 +1145,8 @@
         }
 
         // Geography analysis
-        function analyzeGeography(e, type) {
+        async function analyzeGeography(e, type) {
+
             e.preventDefault();
 
             let selected = '';
@@ -1023,17 +1186,23 @@
             // Show only selected system cards
             showSelectedSystemCards(selectedSystems);
 
-            // Simulate data fetching
-            setTimeout(() => {
-                // Generate random data for demo
-                const energyScore = Math.floor(Math.random() * 80) + 20;
-                const infoScore = Math.floor(Math.random() * 80) + 20;
-                const demoScore = Math.floor(Math.random() * 80) + 20;
-                const techScore = Math.floor(Math.random() * 80) + 20;
-                const geoScore = Math.floor(Math.random() * 80) + 20;
-                const digitalScore = Math.floor(Math.random() * 80) + 20;
-                const supplyScore = Math.floor(Math.random() * 80) + 20;
-                const finScore = Math.floor(Math.random() * 80) + 20;
+                        // Fetch REAL data from APIs
+            try {
+                console.log('Fetching real data from APIs...');
+                
+                const [energyScore, infoScore, techScore, geoScore, 
+                        digitalScore, supplyScore, finScore, demoScore] = 
+                    await Promise.all([
+                        fetchEnergyData(selected),
+                        fetchNewsData(selected),
+                        fetchTechnologyData(selected),
+                        fetchGeopoliticalData(selected),
+                        fetchDigitalInfrastructureData(selected),
+                        fetchSupplyChainData(selected),
+                        fetchFinancialData(selected),
+                        fetchDemographicData(selected)
+                    ]);
+
 
                 // Update bars
                 updateBar('energy', energyScore);
