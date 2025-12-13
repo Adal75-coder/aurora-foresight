@@ -1188,20 +1188,61 @@ async function fetchSupplyChainData(countryCode) {
 
                         // Fetch REAL data from APIs
             try {
-                console.log('Fetching real data from APIs...');
-                
-                const [energyScore, infoScore, techScore, geoScore, 
-                        digitalScore, supplyScore, finScore, demoScore] = 
-                    await Promise.all([
-                        fetchEnergyData(selected),
-                        fetchNewsData(selected),
-                        fetchTechnologyData(selected),
-                        fetchGeopoliticalData(selected),
-                        fetchDigitalInfrastructureData(selected),
-                        fetchSupplyChainData(selected),
-                        fetchFinancialData(selected),
-                        fetchDemographicData(selected)
-                    ]);
+                // Fetch REAL data from APIs
+try {
+    console.log('Fetching real data from APIs...');
+
+    const [
+        energyScore,
+        infoScore,
+        techScore,
+        geoScore,
+        digitalScore,
+        supplyScore,
+        finScore,
+        demoScore
+    ] = await Promise.all([
+        fetchEnergyData(selected),
+        fetchNewsData(selected),
+        fetchTechnologyData(selected),
+        fetchGeopoliticalData(selected),
+        fetchDigitalInfrastructureData(selected),
+        fetchSupplyChainData(selected),
+        fetchFinancialData(selected),
+        fetchDemographicData(selected)
+    ]);
+
+    // Update bars
+    updateBar('energy', energyScore);
+    updateBar('information', infoScore);
+    updateBar('demographic', demoScore);
+    updateBar('technology', techScore);
+    updateBar('geopolitical', geoScore);
+    updateBar('digital', digitalScore);
+    updateBar('supply', supplyScore);
+    updateBar('financial', finScore);
+
+    // Update SCARF scores
+    document.getElementById('scarf-status').textContent = Math.floor(Math.random() * 80) + 20;
+    document.getElementById('scarf-certainty').textContent = Math.floor(Math.random() * 80) + 20;
+    document.getElementById('scarf-autonomy').textContent = Math.floor(Math.random() * 80) + 20;
+    document.getElementById('scarf-relatedness').textContent = Math.floor(Math.random() * 80) + 20;
+    document.getElementById('scarf-fairness').textContent = Math.floor(Math.random() * 80) + 20;
+
+    // Hide loading, show content
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('results-content').style.display = 'block';
+
+    // Scroll to results
+    setTimeout(() => {
+        document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+
+} catch (error) {
+    console.error('API error:', error);
+    alert('Error fetching data. Check console for details.');
+}
+
 
 
                 // Update bars
