@@ -1,4 +1,3 @@
-Made with Perplexity
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -479,6 +478,33 @@ Made with Perplexity
             color: var(--text-dark);
         }
 
+        .time-button {
+            padding: 12px 24px;
+            background: white;
+            border: 2px solid var(--light-bg);
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-dark);
+        }
+
+        .time-button:hover {
+            border-color: var(--secondary-color);
+            background: rgba(52, 152, 219, 0.05);
+        }
+
+        .time-button.active {
+            background: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+
+        .system-checkbox {
+            accent-color: var(--secondary-color);
+        }
+
         @keyframes slideDown {
             from {
                 opacity: 0;
@@ -568,14 +594,112 @@ Made with Perplexity
 
             <div class="content-wrapper">
                 <div class="info-box">
-                    💡 <strong>Select a geography</strong> (nation, region, or continent) and choose an aggregation method to see behavioral analysis and forecasts.
+                    💡 <strong>1) Select a geography</strong> | <strong>2) Choose time horizon</strong> | <strong>3) Select systems</strong> | <strong>4) Run analysis</strong>
                 </div>
 
-                <!-- Tab Navigation -->
-                <div class="tabs-container">
-                    <button class="tab-button active" onclick="switchTab('nations')">📍 Nations</button>
-                    <button class="tab-button" onclick="switchTab('regions')">🗺️ Regions</button>
-                    <button class="tab-button" onclick="switchTab('continents')">🌏 Continents</button>
+                <!-- Analysis Scope Section -->
+                <div style="background: var(--light-bg); padding: 25px; border-radius: 8px; margin-bottom: 30px;">
+                    <h3 style="font-size: 18px; margin-bottom: 20px; color: var(--text-dark);">Analysis Scope</h3>
+                    
+                    <!-- Geographic Level -->
+                    <div style="margin-bottom: 25px;">
+                        <label style="display: block; margin-bottom: 12px; font-weight: 600; color: var(--text-dark); font-size: 14px;">Geographic Level</label>
+                        <div class="tabs-container" style="border-bottom: none; margin-bottom: 0;">
+                            <button class="tab-button active" onclick="switchTab('nations')" style="border-bottom: 3px solid transparent; margin-bottom: 0;">📍 Nation</button>
+                            <button class="tab-button" onclick="switchTab('regions')" style="border-bottom: 3px solid transparent; margin-bottom: 0;">🗺️ Region</button>
+                            <button class="tab-button" onclick="switchTab('continents')" style="border-bottom: 3px solid transparent; margin-bottom: 0;">🌏 Continent</button>
+                        </div>
+                    </div>
+
+                    <!-- Time Horizon -->
+                    <div style="margin-bottom: 25px;">
+                        <label style="display: block; margin-bottom: 12px; font-weight: 600; color: var(--text-dark); font-size: 14px;">Time Horizon</label>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px;">
+                            <button type="button" class="time-button active" data-months="3" onclick="selectTimeHorizon(3, this)">3 Months</button>
+                            <button type="button" class="time-button" data-months="6" onclick="selectTimeHorizon(6, this)">6 Months</button>
+                            <button type="button" class="time-button" data-months="12" onclick="selectTimeHorizon(12, this)">12 Months</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Core Systems Selection -->
+                <div style="background: var(--light-bg); padding: 25px; border-radius: 8px; margin-bottom: 30px;">
+                    <h3 style="font-size: 18px; margin-bottom: 20px; color: var(--text-dark);">Select System Irritation</h3>
+                    <p style="font-size: 14px; color: var(--text-light); margin-bottom: 20px;">Choose which systems to analyze (or leave all checked for comprehensive analysis)</p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;">
+                        <!-- Energy -->
+                        <div style="display: flex; align-items: flex-start; gap: 12px;">
+                            <input type="checkbox" id="sys-energy" class="system-checkbox" value="energy" checked style="margin-top: 6px; cursor: pointer; width: 18px; height: 18px;">
+                            <div style="flex: 1;">
+                                <label for="sys-energy" style="font-weight: 600; cursor: pointer; display: block; margin-bottom: 4px;">⚡ ENERGY</label>
+                                <span style="font-size: 12px; color: var(--text-light);">Availability / Scarcity</span>
+                            </div>
+                        </div>
+
+                        <!-- Information -->
+                        <div style="display: flex; align-items: flex-start; gap: 12px;">
+                            <input type="checkbox" id="sys-information" class="system-checkbox" value="information" checked style="margin-top: 6px; cursor: pointer; width: 18px; height: 18px;">
+                            <div style="flex: 1;">
+                                <label for="sys-information" style="font-weight: 600; cursor: pointer; display: block; margin-bottom: 4px;">📰 INFORMATION</label>
+                                <span style="font-size: 12px; color: var(--text-light);">Information / Non-Info</span>
+                            </div>
+                        </div>
+
+                        <!-- Demographic -->
+                        <div style="display: flex; align-items: flex-start; gap: 12px;">
+                            <input type="checkbox" id="sys-demographic" class="system-checkbox" value="demographic" checked style="margin-top: 6px; cursor: pointer; width: 18px; height: 18px;">
+                            <div style="flex: 1;">
+                                <label for="sys-demographic" style="font-weight: 600; cursor: pointer; display: block; margin-bottom: 4px;">👥 DEMOGRAPHIC</label>
+                                <span style="font-size: 12px; color: var(--text-light);">Reproduction / Decline</span>
+                            </div>
+                        </div>
+
+                        <!-- Technology -->
+                        <div style="display: flex; align-items: flex-start; gap: 12px;">
+                            <input type="checkbox" id="sys-technology" class="system-checkbox" value="technology" checked style="margin-top: 6px; cursor: pointer; width: 18px; height: 18px;">
+                            <div style="flex: 1;">
+                                <label for="sys-technology" style="font-weight: 600; cursor: pointer; display: block; margin-bottom: 4px;">🤖 TECHNOLOGY & AI</label>
+                                <span style="font-size: 12px; color: var(--text-light);">Functionality / Non-Func</span>
+                            </div>
+                        </div>
+
+                        <!-- Geopolitical -->
+                        <div style="display: flex; align-items: flex-start; gap: 12px;">
+                            <input type="checkbox" id="sys-geopolitical" class="system-checkbox" value="geopolitical" checked style="margin-top: 6px; cursor: pointer; width: 18px; height: 18px;">
+                            <div style="flex: 1;">
+                                <label for="sys-geopolitical" style="font-weight: 600; cursor: pointer; display: block; margin-bottom: 4px;">🌐 GEOPOLITICAL</label>
+                                <span style="font-size: 12px; color: var(--text-light);">Power / No-Power</span>
+                            </div>
+                        </div>
+
+                        <!-- Digital Infrastructure -->
+                        <div style="display: flex; align-items: flex-start; gap: 12px;">
+                            <input type="checkbox" id="sys-digital" class="system-checkbox" value="digital" checked style="margin-top: 6px; cursor: pointer; width: 18px; height: 18px;">
+                            <div style="flex: 1;">
+                                <label for="sys-digital" style="font-weight: 600; cursor: pointer; display: block; margin-bottom: 4px;">🔐 DIGITAL INFRASTRUCTURE</label>
+                                <span style="font-size: 12px; color: var(--text-light);">Connection / Disconnect</span>
+                            </div>
+                        </div>
+
+                        <!-- Supply Chain -->
+                        <div style="display: flex; align-items: flex-start; gap: 12px;">
+                            <input type="checkbox" id="sys-supply" class="system-checkbox" value="supply" checked style="margin-top: 6px; cursor: pointer; width: 18px; height: 18px;">
+                            <div style="flex: 1;">
+                                <label for="sys-supply" style="font-weight: 600; cursor: pointer; display: block; margin-bottom: 4px;">🚢 SUPPLY CHAIN</label>
+                                <span style="font-size: 12px; color: var(--text-light);">Delivery / Non-Delivery</span>
+                            </div>
+                        </div>
+
+                        <!-- Financial -->
+                        <div style="display: flex; align-items: flex-start; gap: 12px;">
+                            <input type="checkbox" id="sys-financial" class="system-checkbox" value="financial" checked style="margin-top: 6px; cursor: pointer; width: 18px; height: 18px;">
+                            <div style="flex: 1;">
+                                <label for="sys-financial" style="font-weight: 600; cursor: pointer; display: block; margin-bottom: 4px;">💰 FINANCIAL</label>
+                                <span style="font-size: 12px; color: var(--text-light);">Payment / Non-Payment</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- NATIONS TAB -->
