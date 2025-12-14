@@ -1,0 +1,475 @@
+{
+  "countryIrritations": {
+    "US": {
+      "GeopoliticalPolitical": {
+        "headline": "NATO formalizes 5% GDP defense spending requirement with permanent 3.5% core defense floor",
+        "score": 75,
+        "trendType": "Consolidation",
+        "timeHorizon": "LongTerm",
+        "summary": "Structural shift from voluntary to enforceable defense spending as permanent alliance policy"
+      },
+      "FinancialMonetary": {
+        "headline": "Defense spending commitment requires $350-400B annually (EU+US) driving sovereign bond yields higher",
+        "score": 70,
+        "trendType": "Consolidation",
+        "timeHorizon": "LongTerm",
+        "summary": "Sustained defense spending increases will complicate fiscal consolidation in NATO economies"
+      },
+      "TechnologyAI": {
+        "headline": "US export controls on advanced AI chips tightening with Congressional 30-month ban proposals",
+        "score": 72,
+        "trendType": "VolatilitySpike",
+        "timeHorizon": "ShortTerm",
+        "summary": "Policy volatility between Congressional hardliners and Trump administration negotiation approaches"
+      },
+      "Demographic": {
+        "headline": "White House National Security Strategy frames migration as existential threat to NATO identity",
+        "score": 78,
+        "trendType": "Consolidation",
+        "timeHorizon": "LongTerm",
+        "summary": "Migration elevated from humanitarian issue to tier-one strategic security threat"
+      },
+      "InformationMedia": {
+        "headline": "AI-generated deepfakes targeting NATO audiences at scale, overwhelming fact-checking capacity",
+        "score": 68,
+        "trendType": "Escalation",
+        "timeHorizon": "ShortTerm",
+        "summary": "Russian Storm-1679 operationalizing synthetic media as mass-production tool for cognitive disruption"
+      }
+    },
+    "DE": {
+      "GeopoliticalPolitical": {
+        "headline": "NATO defense spending commitment binds Germany to 5% GDP, triggering domestic political backlash",
+        "score": 73,
+        "trendType": "Consolidation",
+        "timeHorizon": "LongTerm",
+        "summary": "Germany faces sustained 5% defense spending pressures conflicting with austerity expectations"
+      },
+      "FinancialMonetary": {
+        "headline": "Sovereign bond yields rising due to sustained defense spending, complicating fiscal consolidation",
+        "score": 68,
+        "trendType": "Consolidation",
+        "timeHorizon": "MediumTerm",
+        "summary": "European defense-industrial mobilization creating long-term fiscal pressure"
+      },
+      "Energy": {
+        "headline": "EU complete phase-out of Russian fossil fuels by 2027 with enforcement mechanisms",
+        "score": 82,
+        "trendType": "Escalation",
+        "timeHorizon": "MediumTerm",
+        "summary": "Germany faces energy price volatility and alternative sourcing requirements during transition"
+      },
+      "Demographic": {
+        "headline": "EU migration pact implementing burden-sharing pools by June 2026, Germany bears disproportionate flows",
+        "score": 76,
+        "trendType": "Consolidation",
+        "timeHorizon": "LongTerm",
+        "summary": "Germany's role as primary migration destination creates sustained political and integration pressures"
+      }
+    },
+    "FR": {
+      "GeopoliticalPolitical": {
+        "headline": "NATO defense spending commitment requires France to maintain 5% GDP defense floor",
+        "score": 70,
+        "trendType": "Consolidation",
+        "timeHorizon": "LongTerm",
+        "summary": "France locked into sustained military modernization and force structure commitments"
+      },
+      "Energy": {
+        "headline": "EU phase-out of Russian fossil fuels by 2027 accelerates nuclear and renewable transition",
+        "score": 75,
+        "trendType": "Escalation",
+        "timeHorizon": "MediumTerm",
+        "summary": "France's nuclear baseload advantage in energy independence but grid modernization required"
+      },
+      "Demographic": {
+        "headline": "EU migration pact burden-sharing creates integration and social cohesion pressures",
+        "score": 71,
+        "trendType": "Consolidation",
+        "timeHorizon": "LongTerm",
+        "summary": "France faces sustained migration flows and integration challenges"
+      }
+    },
+    "GB": {
+      "GeopoliticalPolitical": {
+        "headline": "NATO alliance commitment accelerates UK defense spending and Arctic capability development",
+        "score": 72,
+        "trendType": "Consolidation",
+        "timeHorizon": "LongTerm",
+        "summary": "UK maintains independent defense posture while aligning with NATO spending requirements"
+      },
+      "TechnologyAI": {
+        "headline": "UK faces trade-offs between US chip export restrictions and independent tech development",
+        "score": 66,
+        "trendType": "VolatilitySpike",
+        "timeHorizon": "ShortTerm",
+        "summary": "UK semiconductor strategy caught between US containment and European sovereignty goals"
+      }
+    },
+    "NL": {
+      "Energy": {
+        "headline": "EU energy decoupling accelerates LNG terminal expansion and renewable infrastructure investment",
+        "score": 70,
+        "trendType": "Escalation",
+        "timeHorizon": "MediumTerm",
+        "summary": "Netherlands experiences energy market volatility during transition away from Russian supplies"
+      },
+      "GeopoliticalPolitical": {
+        "headline": "NATO defense spending commitment binds Netherlands to sustained military modernization",
+        "score": 68,
+        "trendType": "Consolidation",
+        "timeHorizon": "LongTerm",
+        "summary": "Netherlands increases defense budget commitments in permanent deterrence posture"
+      }
+    },
+    "RU": {
+      "Energy": {
+        "headline": "EU complete phase-out of Russian fossil fuels by 2027 with enforcement and kinetic disruption",
+        "score": 95,
+        "trendType": "Escalation",
+        "timeHorizon": "MediumTerm",
+        "summary": "Russian energy export revenue projected to fall 50% year-on-year, straining economy and military"
+      },
+      "FinancialMonetary": {
+        "headline": "Energy isolation reduces Russian foreign exchange reserves, pressuring ruble stability and procurement",
+        "score": 88,
+        "trendType": "Escalation",
+        "timeHorizon": "MediumTerm",
+        "summary": "Russian military procurement and domestic wages face pressure from revenue collapse"
+      },
+      "GlobalSupplyChain": {
+        "headline": "Energy isolation forces Russia toward import substitution and Chinese energy dependency",
+        "score": 84,
+        "trendType": "Consolidation",
+        "timeHorizon": "MediumTerm",
+        "summary": "Russia fragmented into alternative trading blocs, deepening China-Russia interdependency"
+      },
+      "GeopoliticalPolitical": {
+        "headline": "Russia categorically rejects all Ukrainian ceasefire and territorial compromise proposals",
+        "score": 85,
+        "trendType": "Escalation",
+        "timeHorizon": "ShortTerm",
+        "summary": "Kremlin hardening war-termination criteria, signaling willingness for indefinite attrition warfare"
+      },
+      "InformationMedia": {
+        "headline": "Russian AI-deepfake operations targeting NATO audiences with synthetic media at scale",
+        "score": 72,
+        "trendType": "Escalation",
+        "timeHorizon": "ShortTerm",
+        "summary": "Storm-1679 group operationalizing synthetic media to overwhelm Western fact-checking capacity"
+      },
+      "TechnologyAI": {
+        "headline": "Russian tech sector excluded from Western supply chains, forced to legacy infrastructure reliance",
+        "score": 75,
+        "trendType": "Escalation",
+        "timeHorizon": "MediumTerm",
+        "summary": "Russian digital transition delayed, leaving infrastructure vulnerable to cyber disruption"
+      },
+      "Demographic": {
+        "headline": "Prolonged Russia-Ukraine war drives ongoing displacement and conscription manpower stress",
+        "score": 73,
+        "trendType": "Escalation",
+        "timeHorizon": "ShortTerm",
+        "summary": "Russian military losses and conscription affecting domestic labor and social stability"
+      }
+    },
+    "CN": {
+      "TechnologyAI": {
+        "headline": "US and allies impose multilateral restrictions on advanced GPU/chip sales to China",
+        "score": 80,
+        "trendType": "Escalation",
+        "timeHorizon": "MediumTerm",
+        "summary": "China faces coordinated Western export controls on AI semiconductor supply chains"
+      },
+      "GeopoliticalPolitical": {
+        "headline": "China employs hybrid strategy in Arctic, exploiting governance vacuum left by Russia-Ukraine war",
+        "score": 76,
+        "trendType": "Escalation",
+        "timeHorizon": "LongTerm",
+        "summary": "China advances Polar Silk Road while NATO capabilities remain inadequate in Arctic"
+      },
+      "GlobalSupplyChain": {
+        "headline": "China controls Arctic logistics ports and supply chains, creating chokepoint leverage",
+        "score": 74,
+        "trendType": "Consolidation",
+        "timeHorizon": "LongTerm",
+        "summary": "China positioning as indispensable Arctic power through infrastructure and supply chain control"
+      },
+      "DigitalInfrastructure": {
+        "headline": "China expands satellite ISR constellation, limiting NATO Arctic transparency",
+        "score": 71,
+        "trendType": "Escalation",
+        "timeHorizon": "MediumTerm",
+        "summary": "Chinese space capabilities creating contested domain in Arctic communications and surveillance"
+      },
+      "FinancialMonetary": {
+        "headline": "China-Russia energy deals bypass Western financial systems, accelerating de-dollarization",
+        "score": 68,
+        "trendType": "Consolidation",
+        "timeHorizon": "MediumTerm",
+        "summary": "Alternative payment systems and yuan-ruble trades reducing dollar settlement leverage"
+      },
+      "InformationMedia": {
+        "headline": "China preparing sophisticated synthetic media operations leveraging open-source LLMs",
+        "score": 65,
+        "trendType": "Escalation",
+        "timeHorizon": "ShortTerm",
+        "summary": "Chinese deepfake capabilities emerging to match Russian information warfare sophistication"
+      }
+    },
+    "UA": {
+      "Energy": {
+        "headline": "Ukraine escalates kinetic attacks on Russian energy infrastructure, damaging 38% refining capacity",
+        "score": 89,
+        "trendType": "Escalation",
+        "timeHorizon": "ShortTerm",
+        "summary": "Ukrainian strategic energy campaign reducing Russian export capacity and revenues"
+      },
+      "GeopoliticalPolitical": {
+        "headline": "Russia's categorical rejection of ceasefire proposals signals indefinite war of attrition",
+        "score": 86,
+        "trendType": "Escalation",
+        "timeHorizon": "ShortTerm",
+        "summary": "Ukraine facing prolonged conflict without near-term diplomatic resolution"
+      },
+      "Demographic": {
+        "headline": "Prolonged war drives ongoing Ukrainian displacement and refugee flows",
+        "score": 82,
+        "trendType": "Escalation",
+        "timeHorizon": "ShortTerm",
+        "summary": "Ukraine experiences sustained population displacement affecting labor and social structures"
+      },
+      "FinancialMonetary": {
+        "headline": "Extended conflict increases military expenditure, straining fiscal capacity and raising debt",
+        "score": 80,
+        "trendType": "Escalation",
+        "timeHorizon": "MediumTerm",
+        "summary": "Ukraine depends on Western aid sustainability for continued military operations"
+      },
+      "DigitalInfrastructure": {
+        "headline": "Cyber attacks on energy infrastructure affecting power grid resilience",
+        "score": 77,
+        "trendType": "Escalation",
+        "timeHorizon": "ShortTerm",
+        "summary": "Russian hybrid attacks combining kinetic and cyber targeting Ukrainian critical infrastructure"
+      }
+    },
+    "KZ": {
+      "Energy": {
+        "headline": "Caspian Pipeline Consortium attacked, threatening Kazakhstan's oil export routes",
+        "score": 79,
+        "trendType": "Escalation",
+        "timeHorizon": "ShortTerm",
+        "summary": "Kazakhstan's energy exports disrupted by Ukrainian attacks on key pipeline infrastructure"
+      },
+      "GlobalSupplyChain": {
+        "headline": "Energy supply disruption threatens Kazakhstan's economic stability and export revenues",
+        "score": 75,
+        "trendType": "Escalation",
+        "timeHorizon": "MediumTerm",
+        "summary": "Kazakhstan faces supply chain vulnerability in global energy markets"
+      }
+    },
+    "JO": {
+      "GeopoliticalPolitical": {
+        "headline": "Middle East tensions affect regional stability and US strategic commitments",
+        "score": 71,
+        "trendType": "Escalation",
+        "timeHorizon": "ShortTerm",
+        "summary": "Jordan positioned in regional geopolitical volatility zone"
+      },
+      "Demographic": {
+        "headline": "West Africa emergency and migration pressures create secondary displacement toward Middle East",
+        "score": 68,
+        "trendType": "Escalation",
+        "timeHorizon": "MediumTerm",
+        "summary": "Jordan faces indirect demographic pressures from regional instability"
+      }
+    },
+    "BW": {
+      "GeopoliticalPolitical": {
+        "headline": "ECOWAS declares West Africa in state of emergency due to terrorism and instability",
+        "score": 88,
+        "trendType": "Escalation",
+        "timeHorizon": "ShortTerm",
+        "summary": "West African security crisis driving mass displacement and northward migration pressure"
+      },
+      "Demographic": {
+        "headline": "Terrorism drives mass displacement and migration waves from West Africa",
+        "score": 86,
+        "trendType": "Escalation",
+        "timeHorizon": "ShortTerm",
+        "summary": "West Africa experiencing state-of-emergency-level demographic disruption"
+      },
+      "GlobalSupplyChain": {
+        "headline": "Sahel instability disrupts cocoa, mineral, and agricultural supply chains",
+        "score": 82,
+        "trendType": "Escalation",
+        "timeHorizon": "MediumTerm",
+        "summary": "West African collapse affects global commodity supply chains"
+      },
+      "FinancialMonetary": {
+        "headline": "West African economic crisis drives asylum processing costs and border enforcement spending",
+        "score": 75,
+        "trendType": "Escalation",
+        "timeHorizon": "MediumTerm",
+        "summary": "Regional collapse creating downstream budgetary impacts on NATO/EU"
+      }
+    },
+    "IN": {
+      "TechnologyAI": {
+        "headline": "India navigating US-China tech competition while maintaining technology independence",
+        "score": 62,
+        "trendType": "Consolidation",
+        "timeHorizon": "MediumTerm",
+        "summary": "India balancing between US chip export restrictions and Chinese tech competition"
+      },
+      "FinancialMonetary": {
+        "headline": "De-dollarization momentum through BRICS and China-Russia alternative payment systems",
+        "score": 65,
+        "trendType": "Consolidation",
+        "timeHorizon": "MediumTerm",
+        "summary": "India participating in alternative financial settlement mechanisms"
+      }
+    },
+    "JP": {
+      "GeopoliticalPolitical": {
+        "headline": "NATO Arctic positioning and China's Arctic expansion affecting Japanese regional interests",
+        "score": 68,
+        "trendType": "Consolidation",
+        "timeHorizon": "LongTerm",
+        "summary": "Japan monitoring Arctic geopolitical shifts and supply chain vulnerabilities"
+      },
+      "TechnologyAI": {
+        "headline": "Japan faces restrictions on semiconductor exports while managing US-China tech tensions",
+        "score": 71,
+        "trendType": "VolatilitySpike",
+        "timeHorizon": "ShortTerm",
+        "summary": "Japanese tech sector caught between US export control alignment and trade pressures"
+      }
+    },
+    "KR": {
+      "TechnologyAI": {
+        "headline": "South Korea semiconductor supply chains targeted by US-China tech decoupling",
+        "score": 74,
+        "trendType": "Escalation",
+        "timeHorizon": "MediumTerm",
+        "summary": "Korean chip manufacturers facing competing pressures from US and Chinese demand"
+      }
+    },
+    "BR": {
+      "FinancialMonetary": {
+        "headline": "BRICS de-dollarization acceleration through alternative settlement mechanisms",
+        "score": 72,
+        "trendType": "Consolidation",
+        "timeHorizon": "MediumTerm",
+        "summary": "Brazil participating in BRICS framework for alternative financial structures"
+      },
+      "GeopoliticalPolitical": {
+        "headline": "Brazil positioned in BRICS bloc during NATO-Russia-China strategic realignment",
+        "score": 66,
+        "trendType": "Consolidation",
+        "timeHorizon": "LongTerm",
+        "summary": "Brazil navigating multipolar geopolitical landscape through BRICS membership"
+      }
+    },
+    "MX": {
+      "Demographic": {
+        "headline": "US migration policy reframing drives pressure on Mexico as transit country",
+        "score": 79,
+        "trendType": "Escalation",
+        "timeHorizon": "ShortTerm",
+        "summary": "Mexico facing upstream pressures from White House migration-as-threat framing"
+      },
+      "GeopoliticalPolitical": {
+        "headline": "Trump border enforcement strategies affecting Mexico's regional role",
+        "score": 73,
+        "trendType": "Escalation",
+        "timeHorizon": "ShortTerm",
+        "summary": "Mexico caught between US border enforcement and Central American displacement"
+      }
+    },
+    "IL": {
+      "GeopoliticalPolitical": {
+        "headline": "Middle East tensions and regional proxy conflicts affecting Israeli strategic position",
+        "score": 82,
+        "trendType": "Escalation",
+        "timeHorizon": "ShortTerm",
+        "summary": "Israel navigating complex regional security environment"
+      },
+      "InformationMedia": {
+        "headline": "Information warfare targeting Middle East audiences including Israeli domestic sphere",
+        "score": 71,
+        "trendType": "Escalation",
+        "timeHorizon": "ShortTerm",
+        "summary": "Israeli information environment affected by broader AI-deepfake operations"
+      }
+    },
+    "IR": {
+      "FinancialMonetary": {
+        "headline": "US enforcement against dark-fleet oil trade disrupts Iran's energy export circumvention",
+        "score": 80,
+        "trendType": "Escalation",
+        "timeHorizon": "ShortTerm",
+        "summary": "Iran facing intensified enforcement of energy sanctions through dark-fleet seizures"
+      },
+      "Energy": {
+        "headline": "US seizing dark-fleet tankers linked to Iranian oil networks",
+        "score": 78,
+        "trendType": "Escalation",
+        "timeHorizon": "ShortTerm",
+        "summary": "Iranian oil export networks targeted by expanded US enforcement mechanisms"
+      }
+    },
+    "VE": {
+      "FinancialMonetary": {
+        "headline": "US enforcement against Venezuelan dark-fleet oil trade disrupts export networks",
+        "score": 77,
+        "trendType": "Escalation",
+        "timeHorizon": "ShortTerm",
+        "summary": "Venezuelan oil export revenues impacted by US dark-fleet enforcement"
+      }
+    },
+    "PL": {
+      "GeopoliticalPolitical": {
+        "headline": "Poland affected by NATO defense spending commitments and Russia border tensions",
+        "score": 76,
+        "trendType": "Consolidation",
+        "timeHorizon": "LongTerm",
+        "summary": "Poland locked into sustained defense spending and NATO deterrence posture"
+      },
+      "Demographic": {
+        "headline": "Poland resisting EU burden-sharing on migration, creating internal NATO friction",
+        "score": 70,
+        "trendType": "Consolidation",
+        "timeHorizon": "LongTerm",
+        "summary": "Poland positioned in EU migration burden-sharing conflicts"
+      }
+    },
+    "CZ": {
+      "GeopoliticalPolitical": {
+        "headline": "Czech Republic NATO commitment requires sustained defense spending increases",
+        "score": 69,
+        "trendType": "Consolidation",
+        "timeHorizon": "LongTerm",
+        "summary": "Czech Republic locked into NATO defense spending trajectory"
+      }
+    },
+    "TR": {
+      "GeopoliticalPolitical": {
+        "headline": "Turkey navigating NATO alignment while maintaining Middle East partnerships",
+        "score": 72,
+        "trendType": "Consolidation",
+        "timeHorizon": "MediumTerm",
+        "summary": "Turkey positioned between NATO requirements and regional strategic interests"
+      },
+      "Demographic": {
+        "headline": "Turkey faces migration pressures from West Asia and Syrian displacement",
+        "score": 75,
+        "trendType": "Escalation",
+        "timeHorizon": "MediumTerm",
+        "summary": "Turkey experiencing sustained refugee and migration pressures"
+      }
+    }
+  }
+}

@@ -25,7 +25,7 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica Neue, Arial, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             color: var(--text-dark);
@@ -47,7 +47,7 @@
         header h1 {
             font-size: 48px;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         header p {
@@ -58,7 +58,7 @@
         .main-content {
             background: white;
             border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             overflow: hidden;
             animation: slideUp 0.6s ease-out;
         }
@@ -276,13 +276,21 @@
             background: white;
             padding: 20px;
             border-radius: 8px;
-            border-left: 4px solid var(--secondary-color);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 4px solid transparent;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             display: none;
+            opacity: 0.5;
+            transition: all 0.3s ease;
         }
 
         .system-card.visible {
             display: block;
+        }
+
+        .system-card.active-irritation {
+            border-left-color: var(--secondary-color);
+            opacity: 1;
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
         }
 
         .system-card h4 {
@@ -317,12 +325,41 @@
             font-weight: 600;
         }
 
+        .irritation-headline {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-top: 8px;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .trend-tag {
+            display: inline-block;
+            font-size: 10px;
+            background: var(--secondary-color);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 12px;
+            margin-top: 4px;
+            margin-right: 4px;
+        }
+
+        .time-horizon-tag {
+            display: inline-block;
+            font-size: 10px;
+            background: rgba(52, 152, 219, 0.2);
+            color: var(--secondary-color);
+            padding: 2px 6px;
+            border-radius: 12px;
+            margin-top: 4px;
+        }
+
         .scarf-analysis {
             background: white;
             padding: 25px;
             border-radius: 8px;
             margin-bottom: 25px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
 
         .scarf-analysis h4 {
@@ -460,11 +497,6 @@
             border-color: var(--secondary-color);
         }
 
-        .system-checkbox {
-            accent-color: var(--secondary-color);
-            cursor: pointer;
-        }
-
         @keyframes slideDown {
             from {
                 opacity: 0;
@@ -542,7 +574,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>🌍 SCARF-RAS Systems Irritation Analyzer</h1>
+            <h1>SCARF-RAS Systems Irritation Analyzer</h1>
             <p>Cross-Sectoral Risk Detection & Behavioral Forecasting</p>
         </header>
 
@@ -554,25 +586,25 @@
 
             <div class="content-wrapper">
                 <div class="info-box">
-                    💡 <strong>Step 1:</strong> Choose geography | <strong>Step 2:</strong> Pick time horizon | <strong>Step 3:</strong> Select systems | <strong>Step 4:</strong> Analyze
+                    <strong>Step 1:</strong> Choose geography |
+                    <strong>Step 2:</strong> Pick time horizon |
+                    <strong>Step 3:</strong> Systems automatically highlighted |
+                    <strong>Step 4:</strong> Analyze
                 </div>
 
                 <!-- Analysis Scope Section -->
                 <div style="background: var(--light-bg); padding: 25px; border-radius: 8px; margin-bottom: 30px;">
-                    
                     <!-- Geographic Level - CENTERED -->
                     <div style="margin-bottom: 25px;">
                         <label style="display: block; margin-bottom: 12px; font-weight: 600; color: var(--text-dark); font-size: 14px; text-align: center;">Geographic Level</label>
                         <div class="tabs-container" style="border-bottom: none; margin-bottom: 0; justify-content: center;">
-                            <button class="tab-button active" onclick="switchTab('nations')" style="border-bottom: 3px solid transparent; margin-bottom: 0;">📍 Nation</button>
-                            <button class="tab-button" onclick="switchTab('regions')" style="border-bottom: 3px solid transparent; margin-bottom: 0;">🗺️ Region</button>
-                            <button class="tab-button" onclick="switchTab('continents')" style="border-bottom: 3px solid transparent; margin-bottom: 0;">🌏 Continent</button>
+                            <button class="tab-button active" onclick="switchTab('nations');" style="border-bottom: 3px solid transparent; margin-bottom: 0;">Nation</button>
                         </div>
                     </div>
 
                     <!-- Country Selection - MOVED UP -->
                     <div style="margin-bottom: 25px;">
-                        <label style="display: block; margin-bottom: 12px; font-weight: 600; color: var(--text-dark); font-size: 14px;">Select Your Country:</label>
+                        <label style="display: block; margin-bottom: 12px; font-weight: 600; color: var(--text-dark); font-size: 14px;">Select Your Country</label>
                         <select id="country-select" required style="width: 100%; padding: 12px 15px; border: 2px solid var(--light-bg); border-radius: 6px; font-size: 14px;">
                             <option value="">-- Choose a country --</option>
                             <optgroup label="Northern Europe">
@@ -626,85 +658,13 @@
                             <button type="button" class="time-button" data-months="12" onclick="selectTimeHorizon(12, this)">12 Months</button>
                         </div>
                     </div>
-                </div>
 
-                <!-- Core Systems Selection - ALL UNCHECKED BY DEFAULT -->
-                <div style="background: var(--light-bg); padding: 25px; border-radius: 8px; margin-bottom: 30px;">
-                    <h3 style="font-size: 18px; margin-bottom: 20px; color: var(--text-dark);">Select System Irritation</h3>
-                    <p style="font-size: 14px; color: var(--text-light); margin-bottom: 20px;">Choose which systems to analyze (all deselected - click to activate)</p>
-                    
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;">
-                        <!-- Energy -->
-                        <div style="display: flex; align-items: flex-start; gap: 12px;">
-                            <input type="checkbox" id="sys-energy" class="system-checkbox" value="energy" style="margin-top: 6px; cursor: pointer; width: 18px; height: 18px;">
-                            <div style="flex: 1;">
-                                <label for="sys-energy" style="font-weight: 600; cursor: pointer; display: block; margin-bottom: 4px;">⚡ ENERGY</label>
-                                <span style="font-size: 12px; color: var(--text-light);">Availability / Scarcity</span>
-                            </div>
-                        </div>
-
-                        <!-- Information -->
-                        <div style="display: flex; align-items: flex-start; gap: 12px;">
-                            <input type="checkbox" id="sys-information" class="system-checkbox" value="information" style="margin-top: 6px; cursor: pointer; width: 18px; height: 18px;">
-                            <div style="flex: 1;">
-                                <label for="sys-information" style="font-weight: 600; cursor: pointer; display: block; margin-bottom: 4px;">📰 INFORMATION</label>
-                                <span style="font-size: 12px; color: var(--text-light);">Information / Non-Info</span>
-                            </div>
-                        </div>
-
-                        <!-- Demographic -->
-                        <div style="display: flex; align-items: flex-start; gap: 12px;">
-                            <input type="checkbox" id="sys-demographic" class="system-checkbox" value="demographic" style="margin-top: 6px; cursor: pointer; width: 18px; height: 18px;">
-                            <div style="flex: 1;">
-                                <label for="sys-demographic" style="font-weight: 600; cursor: pointer; display: block; margin-bottom: 4px;">👥 DEMOGRAPHIC</label>
-                                <span style="font-size: 12px; color: var(--text-light);">Reproduction / Decline</span>
-                            </div>
-                        </div>
-
-                        <!-- Technology -->
-                        <div style="display: flex; align-items: flex-start; gap: 12px;">
-                            <input type="checkbox" id="sys-technology" class="system-checkbox" value="technology" style="margin-top: 6px; cursor: pointer; width: 18px; height: 18px;">
-                            <div style="flex: 1;">
-                                <label for="sys-technology" style="font-weight: 600; cursor: pointer; display: block; margin-bottom: 4px;">🤖 TECHNOLOGY & AI</label>
-                                <span style="font-size: 12px; color: var(--text-light);">Functionality / Non-Func</span>
-                            </div>
-                        </div>
-
-                        <!-- Geopolitical -->
-                        <div style="display: flex; align-items: flex-start; gap: 12px;">
-                            <input type="checkbox" id="sys-geopolitical" class="system-checkbox" value="geopolitical" style="margin-top: 6px; cursor: pointer; width: 18px; height: 18px;">
-                            <div style="flex: 1;">
-                                <label for="sys-geopolitical" style="font-weight: 600; cursor: pointer; display: block; margin-bottom: 4px;">🌐 GEOPOLITICAL</label>
-                                <span style="font-size: 12px; color: var(--text-light);">Power / No-Power</span>
-                            </div>
-                        </div>
-
-                        <!-- Digital Infrastructure -->
-                        <div style="display: flex; align-items: flex-start; gap: 12px;">
-                            <input type="checkbox" id="sys-digital" class="system-checkbox" value="digital" style="margin-top: 6px; cursor: pointer; width: 18px; height: 18px;">
-                            <div style="flex: 1;">
-                                <label for="sys-digital" style="font-weight: 600; cursor: pointer; display: block; margin-bottom: 4px;">🔐 DIGITAL INFRASTRUCTURE</label>
-                                <span style="font-size: 12px; color: var(--text-light);">Connection / Disconnect</span>
-                            </div>
-                        </div>
-
-                        <!-- Supply Chain -->
-                        <div style="display: flex; align-items: flex-start; gap: 12px;">
-                            <input type="checkbox" id="sys-supply" class="system-checkbox" value="supply" style="margin-top: 6px; cursor: pointer; width: 18px; height: 18px;">
-                            <div style="flex: 1;">
-                                <label for="sys-supply" style="font-weight: 600; cursor: pointer; display: block; margin-bottom: 4px;">🚢 SUPPLY CHAIN</label>
-                                <span style="font-size: 12px; color: var(--text-light);">Delivery / Non-Delivery</span>
-                            </div>
-                        </div>
-
-                        <!-- Financial -->
-                        <div style="display: flex; align-items: flex-start; gap: 12px;">
-                            <input type="checkbox" id="sys-financial" class="system-checkbox" value="financial" style="margin-top: 6px; cursor: pointer; width: 18px; height: 18px;">
-                            <div style="flex: 1;">
-                                <label for="sys-financial" style="font-weight: 600; cursor: pointer; display: block; margin-bottom: 4px;">💰 FINANCIAL</label>
-                                <span style="font-size: 12px; color: var(--text-light);">Payment / Non-Payment</span>
-                            </div>
-                        </div>
+                    <!-- Systems Auto-Highlight Notice -->
+                    <div style="background: rgba(52, 152, 219, 0.1); padding: 15px; border-radius: 6px; border-left: 4px solid var(--secondary-color);">
+                        <p style="margin: 0; font-size: 14px; color: var(--text-dark);">
+                            <strong>Systems automatically highlighted based on country data</strong><br/>
+                            When you select a country, affected systems will be highlighted and available for analysis.
+                        </p>
                     </div>
                 </div>
 
@@ -712,233 +672,116 @@
                 <div id="nations" class="tab-content active">
                     <form onsubmit="analyzeGeography(event, 'nation')">
                         <div class="aggregation-section">
-                            <label>Aggregation Method (Nations: Default)</label>
+                            <label>Aggregation Method: Nations (Default)</label>
                             <p style="font-size: 14px; color: var(--text-light); margin: 0;">
-                                Single country analysis uses all selected systems directly.
+                                Single country analysis uses all affected systems directly.
                             </p>
                         </div>
 
                         <div class="buttons-container">
-                            <button type="submit" class="btn btn-primary">
-                                🔍 Analyze This Country
-                            </button>
+                            <button type="submit" class="btn btn-primary">Analyze This Country</button>
                         </div>
                     </form>
                 </div>
+            </div>
+        </div>
 
-                <!-- REGIONS TAB -->
-                <div id="regions" class="tab-content">
-                    <form onsubmit="analyzeGeography(event, 'region')">
-                        <div class="form-group">
-                            <label for="region-select">Select a Region:</label>
-                            <select id="region-select" required>
-                                <option value="">-- Choose a region --</option>
-                                <option value="western-europe">Western Europe (11 countries)</option>
-                                <option value="eastern-europe">Eastern Europe (14 countries)</option>
-                                <option value="west-asia">West Asia (14 countries)</option>
-                                <option value="east-asia">East Asia (8 countries)</option>
-                                <option value="south-asia">South Asia (7 countries)</option>
-                                <option value="southeast-asia">Southeast Asia (11 countries)</option>
-                                <option value="north-america">North America (3 countries)</option>
-                                <option value="central-america">Central America & Caribbean (19 countries)</option>
-                                <option value="south-america">South America (13 countries)</option>
-                                <option value="sub-saharan-africa">Sub-Saharan Africa (49 countries)</option>
-                                <option value="north-africa-me">North Africa & Middle East (10 countries)</option>
-                                <option value="oceania-pacific">Oceania & Pacific (14 countries)</option>
-                            </select>
+        <!-- RESULTS SECTION -->
+        <div id="results" class="results-section">
+            <div class="results-header">
+                <h3>Analysis Results</h3>
+                <span class="location-badge" id="location-badge">--</span>
+            </div>
+
+            <div id="loading" class="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Analyzing behavioral data across selected systems...</p>
+            </div>
+
+            <div id="results-content" style="display: none;">
+                <!-- Systems Grid -->
+                <div style="margin-bottom: 30px;">
+                    <h4 style="margin-bottom: 15px; color: var(--text-dark);">System Irritation Scores</h4>
+                    <div class="systems-grid">
+                        <div class="system-card" id="card-energy">
+                            <h4><span class="emoji">⚡</span>Energy</h4>
+                            <div class="irritation-meter"><div class="irritation-bar" id="bar-energy" style="width: 45%">45</div></div>
                         </div>
-
-                        <div class="aggregation-section">
-                            <label>Aggregation Method:</label>
-                            <div class="aggregation-options">
-                                <div class="radio-option">
-                                    <input type="radio" id="agg-gdp" name="aggregation" value="gdp" checked>
-                                    <label for="agg-gdp">GDP-Weighted</label>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="agg-pop" name="aggregation" value="population">
-                                    <label for="agg-pop">Population-Weighted</label>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="agg-uhnw" name="aggregation" value="uhnw">
-                                    <label for="agg-uhnw">UHNW-Weighted</label>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="agg-equal" name="aggregation" value="equal">
-                                    <label for="agg-equal">Equal Average</label>
-                                </div>
-                            </div>
+                        <div class="system-card" id="card-information">
+                            <h4><span class="emoji">📡</span>Information</h4>
+                            <div class="irritation-meter"><div class="irritation-bar" id="bar-information" style="width: 38%">38</div></div>
                         </div>
-
-                        <div class="buttons-container">
-                            <button type="submit" class="btn btn-primary">
-                                🔍 Analyze This Region
-                            </button>
+                        <div class="system-card" id="card-demographic">
+                            <h4><span class="emoji">👥</span>Demographic</h4>
+                            <div class="irritation-meter"><div class="irritation-bar" id="bar-demographic" style="width: 32%">32</div></div>
                         </div>
-                    </form>
-                </div>
-
-                <!-- CONTINENTS TAB -->
-                <div id="continents" class="tab-content">
-                    <form onsubmit="analyzeGeography(event, 'continent')">
-                        <div class="form-group">
-                            <label for="continent-select">Select a Continent:</label>
-                            <select id="continent-select" required>
-                                <option value="">-- Choose a continent --</option>
-                                <option value="africa">Africa (54 countries, 1.4B people)</option>
-                                <option value="asia">Asia (48 countries, 4.7B people)</option>
-                                <option value="europe">Europe (51 countries, 750M people)</option>
-                                <option value="north-america">North America (3 countries, 580M people)</option>
-                                <option value="south-america">South America (13 countries, 430M people)</option>
-                                <option value="oceania">Oceania (14 countries, 45M people)</option>
-                                <option value="global">Global (195+ countries, 8B people)</option>
-                            </select>
+                        <div class="system-card" id="card-technology">
+                            <h4><span class="emoji">🔬</span>Technology</h4>
+                            <div class="irritation-meter"><div class="irritation-bar" id="bar-technology" style="width: 52%">52</div></div>
                         </div>
-
-                        <div class="aggregation-section">
-                            <label>Aggregation Method:</label>
-                            <div class="aggregation-options">
-                                <div class="radio-option">
-                                    <input type="radio" id="agg-gdp-cont" name="aggregation_cont" value="gdp" checked>
-                                    <label for="agg-gdp-cont">GDP-Weighted</label>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="agg-pop-cont" name="aggregation_cont" value="population">
-                                    <label for="agg-pop-cont">Population-Weighted</label>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="agg-uhnw-cont" name="aggregation_cont" value="uhnw">
-                                    <label for="agg-uhnw-cont">UHNW-Weighted</label>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="agg-equal-cont" name="aggregation_cont" value="equal">
-                                    <label for="agg-equal-cont">Equal Average</label>
-                                </div>
-                            </div>
+                        <div class="system-card" id="card-geopolitical">
+                            <h4><span class="emoji">🌍</span>Geopolitical</h4>
+                            <div class="irritation-meter"><div class="irritation-bar" id="bar-geopolitical" style="width: 61%">61</div></div>
                         </div>
-
-                        <div class="buttons-container">
-                            <button type="submit" class="btn btn-primary">
-                                🔍 Analyze This Continent
-                            </button>
+                        <div class="system-card" id="card-digital">
+                            <h4><span class="emoji">🔒</span>Digital Infrastructure</h4>
+                            <div class="irritation-meter"><div class="irritation-bar" id="bar-digital" style="width: 41%">41</div></div>
                         </div>
-                    </form>
-                </div>
-
-                <!-- RESULTS SECTION -->
-                <div id="results" class="results-section">
-                    <div class="results-header">
-                        <h3>📊 Analysis Results</h3>
-                        <span class="location-badge" id="location-badge">--</span>
+                        <div class="system-card" id="card-supply">
+                            <h4><span class="emoji">📦</span>Supply Chain</h4>
+                            <div class="irritation-meter"><div class="irritation-bar" id="bar-supply" style="width: 48%">48</div></div>
+                        </div>
+                        <div class="system-card" id="card-financial">
+                            <h4><span class="emoji">💰</span>Financial</h4>
+                            <div class="irritation-meter"><div class="irritation-bar" id="bar-financial" style="width: 55%">55</div></div>
+                        </div>
                     </div>
+                </div>
 
-                    <div id="loading" class="loading" style="display: none;">
-                        <div class="spinner"></div>
-                        <p>Analyzing behavioral data across selected systems...</p>
+                <!-- SCARF Analysis -->
+                <div class="scarf-analysis">
+                    <h4>SCARF Behavioral Threats</h4>
+                    <div class="scarf-grid">
+                        <div class="scarf-item">
+                            <div class="label">Status</div>
+                            <div class="score" id="scarf-status">62</div>
+                        </div>
+                        <div class="scarf-item">
+                            <div class="label">Certainty</div>
+                            <div class="score" id="scarf-certainty">48</div>
+                        </div>
+                        <div class="scarf-item">
+                            <div class="label">Autonomy</div>
+                            <div class="score" id="scarf-autonomy">55</div>
+                        </div>
+                        <div class="scarf-item">
+                            <div class="label">Relatedness</div>
+                            <div class="score" id="scarf-relatedness">38</div>
+                        </div>
+                        <div class="scarf-item">
+                            <div class="label">Fairness</div>
+                            <div class="score" id="scarf-fairness">41</div>
+                        </div>
                     </div>
+                </div>
 
-                    <div id="results-content" style="display: none;">
-                        <!-- Systems Grid -->
-                        <div style="margin-bottom: 30px;">
-                            <h4 style="margin-bottom: 15px; color: var(--text-dark);">⚡ System Irritation Scores</h4>
-                            <div class="systems-grid">
-                                <div class="system-card" id="card-energy">
-                                    <h4><span class="emoji">⚡</span>Energy</h4>
-                                    <div class="irritation-meter">
-                                        <div class="irritation-bar" id="bar-energy" style="width: 45%;">45</div>
-                                    </div>
-                                </div>
-                                <div class="system-card" id="card-information">
-                                    <h4><span class="emoji">📰</span>Information</h4>
-                                    <div class="irritation-meter">
-                                        <div class="irritation-bar" id="bar-information" style="width: 38%;">38</div>
-                                    </div>
-                                </div>
-                                <div class="system-card" id="card-demographic">
-                                    <h4><span class="emoji">👥</span>Demographic</h4>
-                                    <div class="irritation-meter">
-                                        <div class="irritation-bar" id="bar-demographic" style="width: 32%;">32</div>
-                                    </div>
-                                </div>
-                                <div class="system-card" id="card-technology">
-                                    <h4><span class="emoji">🤖</span>Technology</h4>
-                                    <div class="irritation-meter">
-                                        <div class="irritation-bar" id="bar-technology" style="width: 52%;">52</div>
-                                    </div>
-                                </div>
-                                <div class="system-card" id="card-geopolitical">
-                                    <h4><span class="emoji">🌐</span>Geopolitical</h4>
-                                    <div class="irritation-meter">
-                                        <div class="irritation-bar" id="bar-geopolitical" style="width: 61%;">61</div>
-                                    </div>
-                                </div>
-                                <div class="system-card" id="card-digital">
-                                    <h4><span class="emoji">🔐</span>Digital Infrastructure</h4>
-                                    <div class="irritation-meter">
-                                        <div class="irritation-bar" id="bar-digital" style="width: 41%;">41</div>
-                                    </div>
-                                </div>
-                                <div class="system-card" id="card-supply">
-                                    <h4><span class="emoji">🚢</span>Supply Chain</h4>
-                                    <div class="irritation-meter">
-                                        <div class="irritation-bar" id="bar-supply" style="width: 48%;">48</div>
-                                    </div>
-                                </div>
-                                <div class="system-card" id="card-financial">
-                                    <h4><span class="emoji">💰</span>Financial</h4>
-                                    <div class="irritation-meter">
-                                        <div class="irritation-bar" id="bar-financial" style="width: 55%;">55</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <!-- Alerts -->
+                <div class="alerts-section">
+                    <h5>⚠️ Key Alerts</h5>
+                    <div id="alerts-list">
+                        <div class="alert-item">Energy prices elevated</div>
+                        <div class="alert-item">Media narrative shifting</div>
+                        <div class="alert-item">Supply chain stress detected</div>
+                    </div>
+                </div>
 
-                        <!-- SCARF Analysis -->
-                        <div class="scarf-analysis">
-                            <h4>🧠 SCARF Behavioral Threats</h4>
-                            <div class="scarf-grid">
-                                <div class="scarf-item">
-                                    <div class="label">Status</div>
-                                    <div class="score" id="scarf-status">62</div>
-                                </div>
-                                <div class="scarf-item">
-                                    <div class="label">Certainty</div>
-                                    <div class="score" id="scarf-certainty">48</div>
-                                </div>
-                                <div class="scarf-item">
-                                    <div class="label">Autonomy</div>
-                                    <div class="score" id="scarf-autonomy">55</div>
-                                </div>
-                                <div class="scarf-item">
-                                    <div class="label">Relatedness</div>
-                                    <div class="score" id="scarf-relatedness">38</div>
-                                </div>
-                                <div class="scarf-item">
-                                    <div class="label">Fairness</div>
-                                    <div class="score" id="scarf-fairness">41</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Alerts -->
-                        <div class="alerts-section">
-                            <h5>⚠️ Key Alerts</h5>
-                            <div id="alerts-list">
-                                <div class="alert-item">🔴 Energy prices elevated</div>
-                                <div class="alert-item">🟠 Media narrative shifting</div>
-                                <div class="alert-item">🟡 Supply chain stress detected</div>
-                            </div>
-                        </div>
-
-                        <!-- Forecasts -->
-                        <div class="forecast-section" style="margin-top: 15px;">
-                            <h5 id="forecast-title">📈 3-Month Behavioral Forecast</h5>
-                            <div id="forecasts-list">
-                                <div class="forecast-item"><strong>Month 1:</strong> Monitor selected systems closely</div>
-                                <div class="forecast-item"><strong>Month 2:</strong> Behavioral patterns emerging</div>
-                                <div class="forecast-item"><strong>Month 3:</strong> Convergence suggests elevated uncertainty</div>
-                            </div>
-                        </div>
+                <!-- Forecasts -->
+                <div class="forecast-section" style="margin-top: 15px;">
+                    <h5 id="forecast-title">📈 3-Month Behavioral Forecast</h5>
+                    <div id="forecasts-list">
+                        <div class="forecast-item"><strong>Month 1:</strong> Monitor selected systems closely</div>
+                        <div class="forecast-item"><strong>Month 2:</strong> Behavioral patterns emerging</div>
+                        <div class="forecast-item"><strong>Month 3:</strong> Convergence suggests elevated uncertainty</div>
                     </div>
                 </div>
             </div>
@@ -946,321 +789,357 @@
     </div>
 
     <script>
-        // Time horizon selection - FIX #4
-        // ============================================
-// API CONFIGURATION & KEYS
-// ============================================
-const API_CONFIG = {
-    FRED_API_KEY: '67487d510765ce2253149af770666c57',
-    NEWSAPI_KEY: '8af8495f6b51463499caa2ed79043e3e',
-    ALPHA_VANTAGE_KEY: 'TBL8BDMT2P50INUW',
-};
+        // API CONFIGURATION
+        const APICONFIG = {
+            FREDAPIKEY: '67487d510765ce2253149af770666c57',
+            NEWSAPIKEY: '8af8495f6b51463499caa2ed79043e3e',
+            ALPHAVANTAGEKEY: 'TBL8BDMT2P50INUW',
+        };
 
-const COUNTRY_CODES = {
-    'DK': 'Denmark', 'SE': 'Sweden', 'NO': 'Norway', 'FI': 'Finland',
-    'DE': 'Germany', 'FR': 'France', 'GB': 'United Kingdom', 'NL': 'Netherlands',
-    'BE': 'Belgium', 'IT': 'Italy', 'ES': 'Spain', 'PT': 'Portugal',
-    'GR': 'Greece', 'PL': 'Poland', 'CZ': 'Czech Republic', 'RO': 'Romania',
-    'HU': 'Hungary', 'JP': 'Japan', 'CN': 'China', 'IN': 'India',
-    'SG': 'Singapore', 'KR': 'South Korea', 'US': 'United States',
-    'CA': 'Canada', 'BR': 'Brazil', 'MX': 'Mexico', 'AU': 'Australia'
-};
-let selectedTimeHorizon = 3;
+        const COUNTRYCODES = {
+            DK: 'Denmark', SE: 'Sweden', NO: 'Norway', FI: 'Finland', DE: 'Germany', FR: 'France',
+            GB: 'United Kingdom', NL: 'Netherlands', BE: 'Belgium', IT: 'Italy', ES: 'Spain',
+            PT: 'Portugal', GR: 'Greece', PL: 'Poland', CZ: 'Czech Republic', RO: 'Romania',
+            HU: 'Hungary', JP: 'Japan', CN: 'China', IN: 'India', SG: 'Singapore', KR: 'South Korea',
+            US: 'United States', CA: 'Canada', BR: 'Brazil', MX: 'Mexico', AU: 'Australia'
+        };
 
+        let selectedTimeHorizon = 3;
+
+        // Load country irritations from JSON
+        async function loadCountryIrritations(countryCode) {
+            try {
+                const response = await fetch('/data/country-irritations.json');
+                const data = await response.json();
+                
+                const irritations = data.countryIrritations[countryCode] || {};
+                displaySystemIrritations(irritations);
+                
+                return irritations;
+            } catch (error) {
+                console.error('Error loading irritations:', error);
+                displaySystemIrritations({});
+                return {};
+            }
+        }
+
+        // Display irritations by highlighting affected systems
+        function displaySystemIrritations(irritations) {
+            const systems = {
+                'energy': 'Energy',
+                'information': 'Information',
+                'demographic': 'Demographic',
+                'technology': 'Technology',
+                'geopolitical': 'Geopolitical',
+                'digital': 'Digital',
+                'supply': 'Supply',
+                'financial': 'Financial'
+            };
+            
+            Object.entries(systems).forEach(([systemKey, systemName]) => {
+                const card = document.getElementById(`card-${systemKey}`);
+                if (!card) return;
+                
+                // Remove old irritation headline if exists
+                const oldHeadline = card.querySelector('.irritation-headline');
+                if (oldHeadline) oldHeadline.remove();
+                
+                // Map system keys to irritation keys
+                let irritationKey = systemKey.charAt(0).toUpperCase() + systemKey.slice(1);
+                if (systemKey === 'information') irritationKey = 'InformationMedia';
+                if (systemKey === 'geopolitical') irritationKey = 'GeopoliticalPolitical';
+                if (systemKey === 'digital') irritationKey = 'DigitalInfrastructure';
+                if (systemKey === 'supply') irritationKey = 'GlobalSupplyChain';
+                if (systemKey === 'financial') irritationKey = 'FinancialMonetary';
+                if (systemKey === 'technology') irritationKey = 'TechnologyAI';
+                
+                const irritation = irritations[irritationKey];
+                
+                if (irritation) {
+                    // System IS irritated - highlight it
+                    card.classList.add('active-irritation');
+                    
+                    // Add headline and metadata
+                    const headline = document.createElement('div');
+                    headline.className = 'irritation-headline';
+                    headline.innerHTML = `
+                        <strong>${irritation.headline}</strong><br/>
+                        <div style="margin-top: 6px;">
+                            <span class="trend-tag">${irritation.trendType}</span>
+                            <span class="time-horizon-tag">${irritation.timeHorizon}</span>
+                        </div>
+                    `;
+                    card.appendChild(headline);
+                } else {
+                    // System NOT irritated - keep neutral
+                    card.classList.remove('active-irritation');
+                }
+            });
+        }
+
+        // Time horizon selection
         function selectTimeHorizon(months, element) {
             selectedTimeHorizon = months;
-            
             // Remove active class from all time buttons
             const timeButtons = document.querySelectorAll('.time-button');
             timeButtons.forEach(btn => btn.classList.remove('active'));
-            
             // Add active class to clicked button
             element.classList.add('active');
-            
             // Update forecast title
-            document.getElementById('forecast-title').textContent = '📈 ' + months + '-Month Behavioral Forecast';
-            
-            console.log('Time horizon selected: ' + months + ' months');
+            document.getElementById('forecast-title').textContent = `📈 ${months}-Month Behavioral Forecast`;
+            console.log(`Time horizon selected: ${months} months`);
         }
-// ============================================
-// ENERGY SYSTEM - FRED API
-// ============================================
-async function fetchEnergyData(countryCode) {
-    try {
-        const url = `https://api.stlouisfed.org/fred/series/data?series_id=DCOILWTICO&limit=1&sort_order=desc&api_key=${API_CONFIG.FRED_API_KEY}`;
-        const response = await fetch(url);
-        if (!response.ok) throw new Error(`FRED API error: ${response.status}`);
-        const data = await response.json();
-        if (!data.observations || data.observations.length === 0) return 50;
-        
-        const oilPrice = parseFloat(data.observations.value);
-        let score = 50;
-        if (oilPrice < 40) score = 20;
-        else if (oilPrice < 60) score = 35;
-        else if (oilPrice < 80) score = 50;
-        else if (oilPrice < 100) score = 65;
-        else if (oilPrice < 120) score = 80;
-        else score = 95;
-        
-        console.log(`Oil price: $${oilPrice}/barrel → Energy: ${score}`);
-        return score;
-    } catch (error) {
-        console.error('Energy API error:', error);
-        return 50;
-    }
-}
 
-// ============================================
-// INFORMATION SYSTEM - NewsAPI
-// ============================================
-async function fetchNewsData(countryCode) {
-    try {
-        const countryName = COUNTRY_CODES[countryCode] || countryCode;
-        const url = `https://newsapi.org/v2/top-headlines?q=${countryName}&sortBy=publishedAt&apiKey=${API_CONFIG.NEWSAPI_KEY}`;
-        const response = await fetch(url);
-        if (!response.ok) throw new Error(`NewsAPI error: ${response.status}`);
-        const data = await response.json();
-        if (!data.articles || data.articles.length === 0) return 50;
-        
-        let negativeCount = 0;
-        const negativeKeywords = ['crisis', 'warning', 'risk', 'decline', 'failure', 'threat', 'attack', 'conflict', 'disaster'];
-        
-        data.articles.forEach(article => {
-            const text = (article.title + ' ' + article.description).toLowerCase();
-            if (negativeKeywords.some(keyword => text.includes(keyword))) {
-                negativeCount++;
+        // ENERGY SYSTEM - FRED API
+        async function fetchEnergyData(countryCode) {
+            try {
+                const url = `https://api.stlouisfed.org/fred/series/data?series_id=DCOILWTICO&limit=1&sort_order=desc&api_key=${APICONFIG.FREDAPIKEY}`;
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`FRED API error: ${response.status}`);
+                const data = await response.json();
+                if (!data.observations || data.observations.length === 0) return 50;
+                
+                const oilPrice = parseFloat(data.observations[0].value);
+                let score = 50;
+                if (oilPrice < 40) score = 20;
+                else if (oilPrice < 60) score = 35;
+                else if (oilPrice < 80) score = 50;
+                else if (oilPrice < 100) score = 65;
+                else if (oilPrice < 120) score = 80;
+                else score = 95;
+                
+                console.log(`Oil price: ${oilPrice}/barrel → Energy: ${score}`);
+                return score;
+            } catch (error) {
+                console.error('Energy API error:', error);
+                return 50;
             }
-        });
-        
-        const score = Math.min(100, (negativeCount / data.articles.length) * 120);
-        console.log(`News sentiment: ${(negativeCount/data.articles.length*100).toFixed(1)}% negative → Information: ${score.toFixed(0)}`);
-        return score;
-    } catch (error) {
-        console.error('News API error:', error);
-        return 50;
-    }
-}
+        }
 
-// ============================================
-// FINANCIAL SYSTEM - Alpha Vantage
-// ============================================
-async function fetchFinancialData(countryCode) {
-    try {
-        const countryIndices = {
-            'US': 'SPY', 'GB': 'EUNL.LON', 'DE': 'DAX', 'FR': 'FCHI',
-            'JP': 'NIKKEI', 'CN': 'BVSP', 'AU': 'AXJO'
-        };
-        const symbol = countryIndices[countryCode] || 'SPY';
-        const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${API_CONFIG.ALPHA_VANTAGE_KEY}`;
-        const response = await fetch(url);
-        if (!response.ok) throw new Error(`AlphaVantage error: ${response.status}`);
-        const data = await response.json();
-        
-        if (!data['Global Quote'] || !data['Global Quote']['09. change percent']) return 50;
-        
-        const changePercent = parseFloat(data['Global Quote']['09. change percent']);
-        const volatility = Math.abs(changePercent);
-        
-        let score = 50;
-        if (volatility < 2) score = 25;
-        else if (volatility < 5) score = 40;
-        else if (volatility < 10) score = 55;
-        else if (volatility < 15) score = 70;
-        else score = 85;
-        
-        console.log(`Market change: ${changePercent}% → Financial: ${score}`);
-        return score;
-    } catch (error) {
-        console.error('Financial API error:', error);
-        return 50;
-    }
-}
+        // INFORMATION SYSTEM - NewsAPI
+        async function fetchNewsData(countryCode) {
+            try {
+                const countryName = COUNTRYCODES[countryCode] || countryCode;
+                const url = `https://newsapi.org/v2/top-headlines?q=${countryName}&sortBy=publishedAt&apiKey=${APICONFIG.NEWSAPIKEY}`;
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`NewsAPI error: ${response.status}`);
+                const data = await response.json();
+                if (!data.articles || data.articles.length === 0) return 50;
+                
+                let negativeCount = 0;
+                const negativeKeywords = ['crisis', 'warning', 'risk', 'decline', 'failure', 'threat', 'attack', 'conflict', 'disaster'];
+                data.articles.forEach(article => {
+                    const text = (article.title + article.description).toLowerCase();
+                    if (negativeKeywords.some(keyword => text.includes(keyword))) negativeCount++;
+                });
+                
+                const score = Math.min(100, (negativeCount / data.articles.length) * 120);
+                console.log(`News sentiment: ${negativeCount}/${data.articles.length} (${(100*negativeCount/data.articles.length).toFixed(1)}% negative) → Information: ${score.toFixed(0)}`);
+                return score;
+            } catch (error) {
+                console.error('News API error:', error);
+                return 50;
+            }
+        }
 
-// ============================================
-// DEMOGRAPHIC SYSTEM - World Bank API
-// ============================================
-async function fetchDemographicData(countryCode) {
-    try {
-        const url = `https://api.worldbank.org/v2/country/${countryCode}/indicator/SP.DYN.CBRT.IN?format=json&mrnev=1`;
-        const response = await fetch(url);
-        if (!response.ok) throw new Error(`World Bank error: ${response.status}`);
-        const data = await response.json();
-        
-        if (!data || !data || !data.value) return 50;
-        
-        const birthRate = parseFloat(data.value);
-        if (isNaN(birthRate)) return 50;
-        
-        let score = 50;
-        if (birthRate < 8) score = 75;
-        else if (birthRate < 12) score = 60;
-        else if (birthRate < 18) score = 35;
-        else if (birthRate < 25) score = 35;
-        else if (birthRate < 35) score = 60;
-        else score = 80;
-        
-        console.log(`Birth rate: ${birthRate}/1000 → Demographic: ${score}`);
-        return score;
-    } catch (error) {
-        console.error('Demographic API error:', error);
-        return 50;
-    }
-}
+        // FINANCIAL SYSTEM - Alpha Vantage
+        async function fetchFinancialData(countryCode) {
+            try {
+                const countryIndices = { US: 'SPY', GB: 'EUNL.LON', DE: 'DAX', FR: 'FCHI', JP: 'NIKKEI', CN: 'BVSP', AU: 'AXJO' };
+                const symbol = countryIndices[countryCode] || 'SPY';
+                const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${APICONFIG.ALPHAVANTAGEKEY}`;
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`AlphaVantage error: ${response.status}`);
+                const data = await response.json();
+                if (!data['Global Quote'] || !data['Global Quote']['09. change percent']) return 50;
+                
+                const changePercent = parseFloat(data['Global Quote']['09. change percent']);
+                const volatility = Math.abs(changePercent);
+                let score = 50;
+                if (volatility < 2) score = 25;
+                else if (volatility < 5) score = 40;
+                else if (volatility < 10) score = 55;
+                else if (volatility < 15) score = 70;
+                else score = 85;
+                
+                console.log(`Market change: ${changePercent}% → Financial: ${score}`);
+                return score;
+            } catch (error) {
+                console.error('Financial API error:', error);
+                return 50;
+            }
+        }
 
-// ============================================
-// STUB FUNCTIONS (Placeholder until APIs added)
-// ============================================
-async function fetchTechnologyData(countryCode) {
-    const devCountries = ['US', 'JP', 'DE', 'GB', 'FR', 'SE', 'NO', 'DK'];
-    return devCountries.includes(countryCode) ? Math.random() * 30 + 35 : Math.random() * 40 + 40;
-}
+        // DEMOGRAPHIC SYSTEM - World Bank API (via proxy)
+        async function fetchDemographicData(countryCode) {
+            try {
+                const response = await fetch(`/.netlify/functions/worldbank-demographics?country=${countryCode}`);
+                if (!response.ok) throw new Error(`World Bank proxy error: ${response.status}`);
+                const data = await response.json();
+                if (!data[1] || !data[1][0] || !data[1][0].value) return 50;
+                
+                const birthRate = parseFloat(data[1][0].value);
+                if (isNaN(birthRate)) return 50;
+                
+                let score = 50;
+                if (birthRate < 8) score = 75;
+                else if (birthRate < 12) score = 60;
+                else if (birthRate < 18) score = 35;
+                else if (birthRate < 25) score = 35;
+                else if (birthRate < 35) score = 60;
+                else score = 80;
+                
+                console.log(`Birth rate: ${birthRate}/1000 → Demographic: ${score}`);
+                return score;
+            } catch (error) {
+                console.error('Demographic API error:', error);
+                return 50;
+            }
+        }
 
-async function fetchGeopoliticalData(countryCode) {
-    return Math.random() * 60 + 20;
-}
+        // STUB FUNCTIONS - Placeholder until APIs added
+        async function fetchTechnologyData(countryCode) {
+            const devCountries = ['US', 'JP', 'DE', 'GB', 'FR', 'SE', 'NO', 'DK'];
+            return devCountries.includes(countryCode) ? Math.random() * 30 + 35 : Math.random() * 40 + 40;
+        }
 
-async function fetchDigitalInfrastructureData(countryCode) {
-    return Math.random() * 50 + 25;
-}
+        async function fetchGeopoliticalData(countryCode) {
+            return Math.random() * 60 + 20;
+        }
 
-async function fetchSupplyChainData(countryCode) {
-    return Math.random() * 60 + 20;
-}
+        async function fetchDigitalInfrastructureData(countryCode) {
+            return Math.random() * 50 + 25;
+        }
+
+        async function fetchSupplyChainData(countryCode) {
+            return Math.random() * 60 + 20;
+        }
 
         // Tab switching functionality
         function switchTab(tabName) {
             // Hide all tabs
             const tabs = document.querySelectorAll('.tab-content');
             tabs.forEach(tab => tab.classList.remove('active'));
-
             // Remove active class from all buttons
             const buttons = document.querySelectorAll('.tab-button');
             buttons.forEach(btn => btn.classList.remove('active'));
-
             // Show selected tab
             document.getElementById(tabName).classList.add('active');
-
             // Add active class to clicked button
             event.target.classList.add('active');
         }
 
         // Geography analysis
         async function analyzeGeography(e, type) {
-
             e.preventDefault();
-
-            let selected = '';
-            let aggregation = 'standard';
-
+            
+            let selected;
             if (type === 'nation') {
                 selected = document.getElementById('country-select').value;
-            } else if (type === 'region') {
-                selected = document.getElementById('region-select').value;
-                aggregation = document.querySelector('input[name="aggregation"]:checked').value;
-            } else if (type === 'continent') {
-                selected = document.getElementById('continent-select').value;
-                aggregation = document.querySelector('input[name="aggregation_cont"]:checked').value;
             }
-
+            
             if (!selected) {
                 alert('Please select a geography!');
                 return;
             }
-
-            // Get selected systems
-            const selectedSystems = getSelectedSystems();
+            
+            // Load irritations for selected country
+            const irritations = await loadCountryIrritations(selected);
+            
+            // Get systems that are irritated in this country
+            const selectedSystems = Object.keys(irritations).map(key => {
+                if (key === 'InformationMedia') return 'information';
+                if (key === 'GeopoliticalPolitical') return 'geopolitical';
+                if (key === 'DigitalInfrastructure') return 'digital';
+                if (key === 'GlobalSupplyChain') return 'supply';
+                if (key === 'FinancialMonetary') return 'financial';
+                if (key === 'TechnologyAI') return 'technology';
+                return key.toLowerCase();
+            });
+            
             if (selectedSystems.length === 0) {
-                alert('Please select at least one system!');
+                alert('No irritated systems detected for this country.');
                 return;
             }
-
+            
             // Show loading state
             showResults();
             document.getElementById('loading').style.display = 'block';
             document.getElementById('results-content').style.display = 'none';
-
+            
             // Update location badge with time horizon
             const typeLabel = type.charAt(0).toUpperCase() + type.slice(1);
-            document.getElementById('location-badge').textContent = `${typeLabel}: ${selected.replace(/-/g, ' ')} | ${selectedTimeHorizon}mo | ${selectedSystems.length} Systems`;
-
+            document.getElementById('location-badge').textContent = `${typeLabel}: ${selected} | ${selectedTimeHorizon}mo`;
+            document.getElementById('location-badge').textContent = `${typeLabel}: ${selected} | ${selectedTimeHorizon}mo | ${selectedSystems.length} Systems`;
+            
             // Show only selected system cards
             showSelectedSystemCards(selectedSystems);
-    // Fetch REAL data from APIs
-    try {
-        console.log('Fetching real data from APIs...');
-
-        const [
-            energyScore,
-            infoScore,
-            techScore,
-            geoScore,
-            digitalScore,
-            supplyScore,
-            finScore,
-            demoScore
-        ] = await Promise.all([
-            fetchEnergyData(selected),
-            fetchNewsData(selected),
-            fetchTechnologyData(selected),
-            fetchGeopoliticalData(selected),
-            fetchDigitalInfrastructureData(selected),
-            fetchSupplyChainData(selected),
-            fetchFinancialData(selected),
-            fetchDemographicData(selected)
-        ]);
-
-        // Update bars
-        updateBar('energy', energyScore);
-        updateBar('information', infoScore);
-        updateBar('demographic', demoScore);
-        updateBar('technology', techScore);
-        updateBar('geopolitical', geoScore);
-        updateBar('digital', digitalScore);
-        updateBar('supply', supplyScore);
-        updateBar('financial', finScore);
-
-        // Update SCARF scores
-        document.getElementById('scarf-status').textContent = Math.floor(Math.random() * 80) + 20;
-        document.getElementById('scarf-certainty').textContent = Math.floor(Math.random() * 80) + 20;
-        document.getElementById('scarf-autonomy').textContent = Math.floor(Math.random() * 80) + 20;
-        document.getElementById('scarf-relatedness').textContent = Math.floor(Math.random() * 80) + 20;
-        document.getElementById('scarf-fairness').textContent = Math.floor(Math.random() * 80) + 20;
-
-        // Hide loading, show content
-        document.getElementById('loading').style.display = 'none';
-        document.getElementById('results-content').style.display = 'block';
-
-        // Scroll to results
-        setTimeout(() => {
-            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
-        }, 100);
-
-    } catch (error) {
-        console.error('API error:', error);
-        alert('Error fetching data. Check console for details.');
-    }
-} // ← this closes analyzeGeography
-
-        function getSelectedSystems() {
-            const systems = [];
-            const checkboxes = document.querySelectorAll('.system-checkbox');
-            checkboxes.forEach(checkbox => {
-                if (checkbox.checked) {
-                    systems.push(checkbox.value);
-                }
-            });
-            return systems;
+            
+            // Fetch REAL data from APIs
+            try {
+                console.log('Fetching real data from APIs...');
+                
+                const [
+                    energyScore,
+                    infoScore,
+                    techScore,
+                    geoScore,
+                    digitalScore,
+                    supplyScore,
+                    finScore,
+                    demoScore
+                ] = await Promise.all([
+                    fetchEnergyData(selected),
+                    fetchNewsData(selected),
+                    fetchTechnologyData(selected),
+                    fetchGeopoliticalData(selected),
+                    fetchDigitalInfrastructureData(selected),
+                    fetchSupplyChainData(selected),
+                    fetchFinancialData(selected),
+                    fetchDemographicData(selected)
+                ]);
+                
+                // Update bars
+                updateBar('energy', energyScore);
+                updateBar('information', infoScore);
+                updateBar('demographic', demoScore);
+                updateBar('technology', techScore);
+                updateBar('geopolitical', geoScore);
+                updateBar('digital', digitalScore);
+                updateBar('supply', supplyScore);
+                updateBar('financial', finScore);
+                
+                // Update SCARF scores
+                document.getElementById('scarf-status').textContent = Math.floor(Math.random() * 80) + 20;
+                document.getElementById('scarf-certainty').textContent = Math.floor(Math.random() * 80) + 20;
+                document.getElementById('scarf-autonomy').textContent = Math.floor(Math.random() * 80) + 20;
+                document.getElementById('scarf-relatedness').textContent = Math.floor(Math.random() * 80) + 20;
+                document.getElementById('scarf-fairness').textContent = Math.floor(Math.random() * 80) + 20;
+                
+                // Hide loading, show content
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('results-content').style.display = 'block';
+                
+                // Scroll to results
+                setTimeout(() => {
+                    document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+                
+            } catch (error) {
+                console.error('API error:', error);
+                alert('Error fetching data. Check console for details.');
+            }
         }
 
+        // Helper functions
         function showSelectedSystemCards(selectedSystems) {
             const allCards = document.querySelectorAll('.system-card');
             allCards.forEach(card => {
                 card.classList.remove('visible');
                 card.style.display = 'none';
             });
-            
             selectedSystems.forEach(system => {
-                const card = document.getElementById('card-' + system);
+                const card = document.getElementById(`card-${system}`);
                 if (card) {
                     card.classList.add('visible');
                     card.style.display = 'block';
